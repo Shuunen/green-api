@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/desserts",
+      "handler": "Desserts.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/desserts/count",
+      "handler": "Desserts.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/desserts/:_id",
+      "handler": "Desserts.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/desserts",
+      "handler": "Desserts.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/desserts/:_id",
+      "handler": "Desserts.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/desserts/:_id",
+      "handler": "Desserts.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
