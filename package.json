@@ -5,6 +5,7 @@
   "description": "A Strapi application.",
   "main": "./server.js",
   "scripts": {
+    "commit": "gitmoji -c",
     "setup": "cd admin && npm run setup",
     "start": "node server.js",
     "strapi": "node_modules/strapi/bin/strapi.js",
@@ -16,7 +17,8 @@
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-react": "^6.8.0"
+    "eslint-plugin-react": "^6.8.0",
+    "gitmoji-cli": "^1.9.2"
   },
   "dependencies": {
     "lodash": "4.x.x",
@@ -24,15 +26,15 @@
     "strapi-hook-mongoose": "3.0.0-alpha.14.3"
   },
   "author": {
-    "name": "A Strapi developer",
-    "email": "",
-    "url": ""
+    "name": "Romain Racamier-Lafonr",
+    "email": "romain.racamier@gmail.com",
+    "url": "https://github.com/Shuunen"
   },
   "maintainers": [
     {
-      "name": "A Strapi developer",
-      "email": "",
-      "url": ""
+      "name": "Romain Racamier-Lafonr",
+      "email": "romain.racamier@gmail.com",
+      "url": "https://github.com/Shuunen"
     }
   ],
   "strapi": {
