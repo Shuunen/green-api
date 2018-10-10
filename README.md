@@ -1,3 +1,3 @@
-# green-api
+# Green Api
 
-A quick description of green-api.
+A test of Strapi :)
