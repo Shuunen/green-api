@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * An asynchronous bootstrap function that runs before
@@ -9,5 +9,5 @@
  */
 
 module.exports = cb => {
-  cb();
-};
+  cb()
+}

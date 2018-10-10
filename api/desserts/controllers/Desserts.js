@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Desserts.js controller
@@ -16,9 +16,9 @@ module.exports = {
 
   find: async (ctx) => {
     if (ctx.query._q) {
-      return strapi.services.desserts.search(ctx.query);
+      return strapi.services.desserts.search(ctx.query)
     } else {
-      return strapi.services.desserts.fetchAll(ctx.query);
+      return strapi.services.desserts.fetchAll(ctx.query)
     }
   },
 
@@ -30,10 +30,10 @@ module.exports = {
 
   findOne: async (ctx) => {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
-      return ctx.notFound();
+      return ctx.notFound()
     }
 
-    return strapi.services.desserts.fetch(ctx.params);
+    return strapi.services.desserts.fetch(ctx.params)
   },
 
   /**
@@ -43,7 +43,7 @@ module.exports = {
    */
 
   count: async (ctx) => {
-    return strapi.services.desserts.count(ctx.query);
+    return strapi.services.desserts.count(ctx.query)
   },
 
   /**
@@ -53,7 +53,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
-    return strapi.services.desserts.add(ctx.request.body);
+    return strapi.services.desserts.add(ctx.request.body)
   },
 
   /**
@@ -63,7 +63,7 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
-    return strapi.services.desserts.edit(ctx.params, ctx.request.body) ;
+    return strapi.services.desserts.edit(ctx.params, ctx.request.body)
   },
 
   /**
@@ -73,6 +73,6 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
-    return strapi.services.desserts.remove(ctx.params);
+    return strapi.services.desserts.remove(ctx.params)
   }
-};
+}
