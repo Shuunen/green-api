@@ -2643,10 +2643,10 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
-mongoose@^5.0.16:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.3.2.tgz#184887c359401ea42fedf7c48692d65eba91ce99"
-  integrity sha512-07fpCMqvCiSdKXIygt3aAeNFJYjQPjDXILbwBEmF0e8gy2hSKMNuP5QG4J6L8m9BhjVxcvoLiPzaGKN7I/7lLg==
+mongoose@^5.2.17:
+  version "5.3.7"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.3.7.tgz#c95906d03879f3b78ec34b31c453daa18f3cede5"
+  integrity sha512-az9DtkYDuZFRpCa8aCnGHQP/up/P0fku8omtYxVwBAlQElO/yCJpKpIAR91szRbua6k9WNGpNde4KjdbA79Spg==
   dependencies:
     async "2.6.1"
     bson "~1.0.5"
@@ -3736,29 +3736,17 @@ strapi-generate@3.0.0-alpha.14.4.0:
     reportback "^2.0.1"
     strapi-utils "3.0.0-alpha.14.4.0"
 
-strapi-hook-mongoose@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-hook-mongoose/-/strapi-hook-mongoose-3.0.0-alpha.14.3.tgz#68e69e8a467129fb7d5b790f507fb1fb334d46d9"
-  integrity sha512-7nUHvRTx/29yeBlfSeMGfPnCxfCrzdEFDWVZKH+vTSqLfkoascIDMJoMlR/sHbykK6Ic/o67Qgjd0Ej8zSCAcg==
+strapi-hook-mongoose@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-hook-mongoose/-/strapi-hook-mongoose-3.0.0-alpha.14.4.0.tgz#6db9b32cfc320a5693992ee0049af1554d958b5c"
+  integrity sha512-G9mcPfTmJDPN1txc0Xx0a7iRaJ4MJO/nm8D3pKb3cR8AVrnUgb9OeTqGHzFKRxa00qmS2HJNd0EXCY3PhtL45Q==
   dependencies:
     lodash "^4.17.5"
-    mongoose "^5.0.16"
+    mongoose "^5.2.17"
     mongoose-float "^1.0.2"
     pluralize "^6.0.0"
     rimraf "^2.6.2"
-    strapi-utils "3.0.0-alpha.14.3"
-
-strapi-utils@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-utils/-/strapi-utils-3.0.0-alpha.14.3.tgz#1f85818d13ba1d16bbfe7ac2f135601f743ae002"
-  integrity sha512-MpQtC4m35SeCTPmgII1ZiYXqy3KKGsScief/qllW+Nf83kMZ4nlI1qnJIEbPbBMjDORjUmitY45pti7Ym/KfeQ==
-  dependencies:
-    commander "^2.11.0"
-    joi-json "^2.0.1"
-    knex "^0.13.0"
-    lodash "^4.17.5"
-    pino "^4.7.1"
-    shelljs "^0.7.7"
+    strapi-utils "3.0.0-alpha.14.4.0"
 
 strapi-utils@3.0.0-alpha.14.4.0:
   version "3.0.0-alpha.14.4.0"
