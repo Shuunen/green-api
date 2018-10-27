@@ -3127,45 +3127,45 @@ standard@12.0.1:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
 
-strapi-admin@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-admin/-/strapi-admin-3.0.0-alpha.14.3.tgz#86b041c1d401de6f978c8ead30544c974a425e0c"
+strapi-admin@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-admin/-/strapi-admin-3.0.0-alpha.14.4.0.tgz#e2f051c09a2876bf32fb7798cb2d50886ed391c8"
   dependencies:
     react-ga "^2.4.1"
     remove-markdown "^0.2.2"
     shelljs "^0.7.8"
 
-strapi-generate-admin@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-admin/-/strapi-generate-admin-3.0.0-alpha.14.3.tgz#9fc71d89663f50af1a88b7b10c292e4a4d758bc7"
+strapi-generate-admin@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-admin/-/strapi-generate-admin-3.0.0-alpha.14.4.0.tgz#05874ada893447b674d6e46780b08b0ad6e7add5"
   dependencies:
     fs-extra "^4.0.1"
     lodash "^4.17.5"
-    strapi-admin "3.0.0-alpha.14.3"
-    strapi-utils "3.0.0-alpha.14.3"
+    strapi-admin "3.0.0-alpha.14.4.0"
+    strapi-utils "3.0.0-alpha.14.4.0"
 
-strapi-generate-api@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-api/-/strapi-generate-api-3.0.0-alpha.14.3.tgz#031463ce4760ce90ae2c03febcae45d27b0d1026"
+strapi-generate-api@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-api/-/strapi-generate-api-3.0.0-alpha.14.4.0.tgz#e775707c12c721728f20cb95c04d99b268727913"
   dependencies:
     lodash "^4.17.5"
     pluralize "^6.0.0"
 
-strapi-generate-controller@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-controller/-/strapi-generate-controller-3.0.0-alpha.14.3.tgz#34fc9716fa76afa72e39256076440ca185624cb5"
+strapi-generate-controller@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-controller/-/strapi-generate-controller-3.0.0-alpha.14.4.0.tgz#e1af8cd3b1497d3033248b140cc9e777db49e91f"
   dependencies:
     lodash "^4.17.5"
 
-strapi-generate-model@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-model/-/strapi-generate-model-3.0.0-alpha.14.3.tgz#fbf6b99a46f2d9660fcd410cfed97d18e85bef88"
+strapi-generate-model@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-model/-/strapi-generate-model-3.0.0-alpha.14.4.0.tgz#e48b8fea33b54f3197bfbc532787970619922d95"
   dependencies:
     lodash "^4.17.5"
 
-strapi-generate-new@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-new/-/strapi-generate-new-3.0.0-alpha.14.3.tgz#27be3034c52b5f8cc865835220bdc050da5c5f5d"
+strapi-generate-new@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-new/-/strapi-generate-new-3.0.0-alpha.14.4.0.tgz#e818c42e0010365e362ce0fc9847c4de9ab18862"
   dependencies:
     enpeem "^2.2.0"
     fs-extra "^4.0.0"
@@ -3173,38 +3173,38 @@ strapi-generate-new@3.0.0-alpha.14.3:
     listr "^0.14.1"
     lodash "^4.17.5"
     ora "^2.1.0"
-    strapi-utils "3.0.0-alpha.14.3"
+    strapi-utils "3.0.0-alpha.14.4.0"
     uuid "^3.1.0"
 
-strapi-generate-plugin@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-plugin/-/strapi-generate-plugin-3.0.0-alpha.14.3.tgz#d93a7d4f8977a20332db9e7601375fdae09d4422"
+strapi-generate-plugin@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-plugin/-/strapi-generate-plugin-3.0.0-alpha.14.4.0.tgz#9ed338a0a58060a8ce6e468b7b78df3e4bb86bbd"
   dependencies:
     fs-extra "^4.0.0"
     lodash "^4.17.5"
     pluralize "^6.0.0"
 
-strapi-generate-policy@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-policy/-/strapi-generate-policy-3.0.0-alpha.14.3.tgz#ede25c34491a44eeb0e8e2e18bcaf3ad87a8057b"
+strapi-generate-policy@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-policy/-/strapi-generate-policy-3.0.0-alpha.14.4.0.tgz#f1f5ebca10551128ca0417d83dcedc0145fa0006"
   dependencies:
     lodash "^4.17.5"
 
-strapi-generate-service@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate-service/-/strapi-generate-service-3.0.0-alpha.14.3.tgz#0c4172bfb88ec2b34435cb8d4600ad95c418f545"
+strapi-generate-service@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate-service/-/strapi-generate-service-3.0.0-alpha.14.4.0.tgz#1877259a9d8bf1d4d433b66d8225926ea03b5484"
   dependencies:
     lodash "^4.17.5"
 
-strapi-generate@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi-generate/-/strapi-generate-3.0.0-alpha.14.3.tgz#ff5c6b960a9dfc6ef549c9de47ba3d84b719e00c"
+strapi-generate@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-generate/-/strapi-generate-3.0.0-alpha.14.4.0.tgz#24f2baeef30957246d3c561d3236a57e2da2571a"
   dependencies:
     async "^2.5.0"
     fs-extra "^4.0.0"
     lodash "^4.17.5"
     reportback "^2.0.1"
-    strapi-utils "3.0.0-alpha.14.3"
+    strapi-utils "3.0.0-alpha.14.4.0"
 
 strapi-hook-mongoose@3.0.0-alpha.14.3:
   version "3.0.0-alpha.14.3"
@@ -3228,9 +3228,20 @@ strapi-utils@3.0.0-alpha.14.3:
     pino "^4.7.1"
     shelljs "^0.7.7"
 
-strapi@3.0.0-alpha.14.3:
-  version "3.0.0-alpha.14.3"
-  resolved "https://registry.yarnpkg.com/strapi/-/strapi-3.0.0-alpha.14.3.tgz#5cfff6060e9296382f52652643e800047c77956e"
+strapi-utils@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi-utils/-/strapi-utils-3.0.0-alpha.14.4.0.tgz#64ffbeea3eb43e3a2d370d1e138a0b6102d94492"
+  dependencies:
+    commander "^2.11.0"
+    joi-json "^2.0.1"
+    knex "^0.13.0"
+    lodash "^4.17.5"
+    pino "^4.7.1"
+    shelljs "^0.7.7"
+
+strapi@3.0.0-alpha.14.4.0:
+  version "3.0.0-alpha.14.4.0"
+  resolved "https://registry.yarnpkg.com/strapi/-/strapi-3.0.0-alpha.14.4.0.tgz#d5973e14a77b704f20092274e3227db5348a0b97"
   dependencies:
     async "^2.1.2"
     boom "^5.2.0"
@@ -3260,16 +3271,16 @@ strapi@3.0.0-alpha.14.3:
     rimraf "^2.6.2"
     semver "^5.4.1"
     stack-trace "0.0.10"
-    strapi-generate "3.0.0-alpha.14.3"
-    strapi-generate-admin "3.0.0-alpha.14.3"
-    strapi-generate-api "3.0.0-alpha.14.3"
-    strapi-generate-controller "3.0.0-alpha.14.3"
-    strapi-generate-model "3.0.0-alpha.14.3"
-    strapi-generate-new "3.0.0-alpha.14.3"
-    strapi-generate-plugin "3.0.0-alpha.14.3"
-    strapi-generate-policy "3.0.0-alpha.14.3"
-    strapi-generate-service "3.0.0-alpha.14.3"
-    strapi-utils "3.0.0-alpha.14.3"
+    strapi-generate "3.0.0-alpha.14.4.0"
+    strapi-generate-admin "3.0.0-alpha.14.4.0"
+    strapi-generate-api "3.0.0-alpha.14.4.0"
+    strapi-generate-controller "3.0.0-alpha.14.4.0"
+    strapi-generate-model "3.0.0-alpha.14.4.0"
+    strapi-generate-new "3.0.0-alpha.14.4.0"
+    strapi-generate-plugin "3.0.0-alpha.14.4.0"
+    strapi-generate-policy "3.0.0-alpha.14.4.0"
+    strapi-generate-service "3.0.0-alpha.14.4.0"
+    strapi-utils "3.0.0-alpha.14.4.0"
 
 stream-reduce@1.0.3:
   version "1.0.3"
