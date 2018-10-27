@@ -33,7 +33,7 @@
   "bundleDependencies": false,
   "dependencies": {
     "bcryptjs": "2.4.3",
-    "grant-koa": "3.8.2",
+    "grant-koa": "4.1.2",
     "jsonwebtoken": "8.3.0",
     "koa": "2.6.1",
     "koa2-ratelimit": "0.6.3",
