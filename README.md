@@ -6,7 +6,6 @@
 
 * Node : version 9 ans above
 * Npm : version 5 and above
-* Strapi : `yarn global add strapi@alpha`
 * Install dependencies : `yarn`
 
 ## Usage
