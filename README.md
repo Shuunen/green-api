@@ -4,8 +4,9 @@
 
 ## Prerequisites
 
-* Node : version 9 ans above
-* Npm : version 5 and above
+* Node : version 10 ans above
+* Npm : version 6 and above
+* MongoDB : version 3 and above
 * Install dependencies : `yarn`
 
 ## Usage
