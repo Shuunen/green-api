@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Products.js controller
@@ -16,9 +16,9 @@ module.exports = {
 
   find: async (ctx) => {
     if (ctx.query._q) {
-      return strapi.services.products.search(ctx.query);
+      return strapi.services.products.search(ctx.query)
     } else {
-      return strapi.services.products.fetchAll(ctx.query);
+      return strapi.services.products.fetchAll(ctx.query)
     }
   },
 
@@ -30,10 +30,10 @@ module.exports = {
 
   findOne: async (ctx) => {
     if (!ctx.params._id.match(/^[0-9a-fA-F]{24}$/)) {
-      return ctx.notFound();
+      return ctx.notFound()
     }
 
-    return strapi.services.products.fetch(ctx.params);
+    return strapi.services.products.fetch(ctx.params)
   },
 
   /**
@@ -43,7 +43,7 @@ module.exports = {
    */
 
   count: async (ctx) => {
-    return strapi.services.products.count(ctx.query);
+    return strapi.services.products.count(ctx.query)
   },
 
   /**
@@ -53,7 +53,7 @@ module.exports = {
    */
 
   create: async (ctx) => {
-    return strapi.services.products.add(ctx.request.body);
+    return strapi.services.products.add(ctx.request.body)
   },
 
   /**
@@ -63,7 +63,7 @@ module.exports = {
    */
 
   update: async (ctx, next) => {
-    return strapi.services.products.edit(ctx.params, ctx.request.body) ;
+    return strapi.services.products.edit(ctx.params, ctx.request.body)
   },
 
   /**
@@ -73,6 +73,6 @@ module.exports = {
    */
 
   destroy: async (ctx, next) => {
-    return strapi.services.products.remove(ctx.params);
+    return strapi.services.products.remove(ctx.params)
   }
-};
+}

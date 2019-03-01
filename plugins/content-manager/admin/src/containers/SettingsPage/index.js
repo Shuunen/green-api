@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * SettingsPage
  */
 
@@ -10,6 +10,7 @@ import { createStructuredSelector } from 'reselect';
 import cn from 'classnames';
 import { get, sortBy } from 'lodash';
 import PropTypes from 'prop-types';
+import pluginId from 'pluginId';
 import { onChange, onSubmit, onReset } from 'containers/App/actions';
 import { makeSelectModifiedSchema, makeSelectSubmitSuccess } from 'containers/App/selectors';
 import Input from 'components/InputsIndex';
@@ -17,8 +18,6 @@ import PluginHeader from 'components/PluginHeader';
 import PopUpWarning from 'components/PopUpWarning';
 import Block from 'components/Block';
 import SettingsRow from 'components/SettingsRow';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 import reducer from './reducer';
 import saga from './saga';
 import styles from './styles.scss';
@@ -36,23 +35,23 @@ class SettingsPage extends React.PureComponent {
   componentWillUnmount() {
     this.props.onReset();
   }
-  
+
   getModels = (data = this.props.schema.models, destination = '/') => {
     const models = Object.keys(data).reduce((acc, curr) => {
       if (curr !== 'plugins') {
-  
+
         if (!data[curr].fields && _.isObject(data[curr])) {
-          return this.getModels(data[curr], `${destination}${curr}/`);
+          return acc.concat(this.getModels(data[curr], `${destination}${curr}/`));
         }
-        
+
         return acc.concat([{ name: curr, destination: `${destination}${curr}` }]);
-      } 
-    
-      return this.getModels(data[curr], `${destination}${curr}/`);
+      }
+
+      return acc.concat(this.getModels(data[curr], `${destination}${curr}/`));
     }, []);
 
     return sortBy(
-      models.filter(obj => obj.name !== 'permission' && obj.name !== 'role'),
+      models.filter(obj => !!this.props.schema.layout[obj.name]),
       ['name'],
     );
   }
@@ -60,6 +59,7 @@ class SettingsPage extends React.PureComponent {
   getPluginHeaderActions = () => (
     [
       {
+        id: 'cancelChanges',
         label: 'content-manager.popUpWarning.button.cancel',
         kind: 'secondary',
         onClick: this.handleReset,
@@ -83,7 +83,8 @@ class SettingsPage extends React.PureComponent {
 
   handleClick = (destination) => {
     const { location: { pathname } } = this.props;
-    this.props.history.push(`${pathname}${destination}`);
+
+    this.props.history.push(`${pathname}/list-settings${destination}`);
   }
 
   handleConfirmReset = () => {
@@ -209,8 +210,8 @@ const mapStateToProps = createStructuredSelector({
   submitSuccess: makeSelectSubmitSuccess(),
 });
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-const withReducer = injectReducer({ key: 'settingsPage', reducer });
-const withSaga = injectSaga({ key: 'settingsPage', saga });
+const withReducer = strapi.injectReducer({ key: 'settingsPage', reducer, pluginId });
+const withSaga = strapi.injectSaga({ key: 'settingsPage', saga, pluginId });
 
 export default compose(
   withReducer,

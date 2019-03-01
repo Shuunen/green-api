@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 /**
  * Lifecycle callbacks for the `Products` model.
@@ -51,4 +51,4 @@ module.exports = {
   // After destroying a value.
   // Fired after a `delete` query.
   // afterDestroy: async (model, result) => {}
-};
+}

@@ -4,6 +4,7 @@ const fs = require('fs');
 const _ = require('lodash');
 
 const Service = require('../services/ContentTypeBuilder');
+const { escapeNewlines } = require('../utils/helpers.js');
 
 module.exports = {
   getModels: async ctx => {
@@ -47,11 +48,13 @@ module.exports = {
       return ctx.badRequest(null, [{ messages: attributesErrors }]);
     }
 
+    const _description = escapeNewlines(description, '\\n');
+
     strapi.reload.isWatching = false;
 
     await Service.appearance(formatedAttributes, name);
 
-    await Service.generateAPI(name, description, connection, collectionName, []);
+    await Service.generateAPI(name, _description, connection, collectionName, []);
 
     const modelFilePath = await Service.getModelPath(name, plugin);
 
@@ -75,10 +78,15 @@ module.exports = {
       try {
         fs.writeFileSync(modelFilePath, JSON.stringify(modelJSON, null, 2), 'utf8');
 
+        if (_.isEmpty(strapi.api)) {
+          strapi.emit('didCreateFirstContentType');
+        }
+
         ctx.send({ ok: true });
 
         strapi.reload();
       } catch (e) {
+        strapi.emit('didNotCreateContentType', e);
         return ctx.badRequest(null, [{ messages: [{ id: 'request.error.model.write' }] }]);
       }
     } catch (e) {
@@ -103,12 +111,14 @@ module.exports = {
       return ctx.badRequest(null, [{ messages: attributesErrors }]);
     }
 
+    const _description = escapeNewlines(description);
+
     let modelFilePath = Service.getModelPath(model, plugin);
 
     strapi.reload.isWatching = false;
 
     if (name !== model) {
-      await Service.generateAPI(name, description, connection, collectionName, []);
+      await Service.generateAPI(name, _description, connection, collectionName, []);
     }
 
     await Service.appearance(formatedAttributes, name, plugin);
@@ -120,7 +130,7 @@ module.exports = {
       modelJSON.collectionName = collectionName;
       modelJSON.info = {
         name,
-        description
+        description: _description
       };
       modelJSON.attributes = formatedAttributes;
 

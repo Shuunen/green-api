@@ -5,21 +5,19 @@
   "description": "A Strapi application.",
   "main": "./server.js",
   "scripts": {
-    "commit": "gitmoji -c",
     "setup": "cd admin && npm run setup",
     "start": "node server.js",
     "strapi": "node_modules/strapi/bin/strapi.js",
-    "lint": "standard api/**/*.js config/**/*.js",
+    "lint": "standard \"api/**/*.js config/**/*.js plugins/**/*.js\" --fix",
     "postinstall": "node node_modules/strapi/lib/utils/post-install.js"
   },
   "devDependencies": {
-    "gitmoji-cli": "1.9.2",
     "standard": "12.0.1"
   },
   "dependencies": {
-    "lodash": "4.17.11",
-    "strapi": "3.0.0-alpha.14.4.0",
-    "strapi-hook-mongoose": "3.0.0-alpha.14.4.0"
+    "lodash": "^4.17.5",
+    "strapi": "3.0.0-alpha.24.1",
+    "strapi-hook-mongoose": "3.0.0-alpha.24.1"
   },
   "author": {
     "name": "Romain Racamier-Lafonr",
@@ -35,7 +33,7 @@
   ],
   "strapi": {
     "packageManager": "npm",
-    "uuid": "f9966354-f413-4869-a77e-7b61e8a79a65"
+    "uuid": "b1d811ca-452c-4bd3-ac55-7fb18a6fa561"
   },
   "engines": {
     "node": ">= 10.0.0",
@@ -44,7 +42,8 @@
   "license": "MIT",
   "standard": {
     "globals": [
-      "strapi"
+      "strapi",
+      "Products"
     ]
   }
 }

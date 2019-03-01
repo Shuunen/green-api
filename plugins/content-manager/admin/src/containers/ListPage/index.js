@@ -13,6 +13,7 @@ import { capitalize, findIndex, get, isUndefined, toInteger, upperFirst } from '
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { FormattedMessage } from 'react-intl';
 import cn from 'classnames';
+import pluginId from 'pluginId';
 // App selectors
 import { makeSelectSchema } from 'containers/App/selectors';
 // You can find these components in either
@@ -30,8 +31,6 @@ import Search from 'components/Search';
 import Table from 'components/Table';
 // Utils located in `strapi/packages/strapi-helper-plugin/lib/src/utils`;
 import getQueryParameters from 'utils/getQueryParameters';
-import injectReducer from 'utils/injectReducer';
-import injectSaga from 'utils/injectSaga';
 import storeData from 'utils/storeData';
 import Div from './Div';
 import {
@@ -390,7 +389,11 @@ export class ListPage extends React.Component {
 
   renderDropdown = item => {
     return (
-      <DropdownItem key={item}>
+      <DropdownItem
+        key={item}
+        toggle={false}
+        onClick={() => this.handleChangeHeader({ target: { name: item } })}
+      >
         <div>
           <InputCheckbox onChange={this.handleChangeHeader} name={item} value={this.isAttrInitiallyDisplayed(item)} />
         </div>
@@ -400,18 +403,12 @@ export class ListPage extends React.Component {
 
   renderDropdownHeader = msg => {
     return (
-      <DropdownItem>
+      <DropdownItem onClick={this.handleResetDisplayedFields}>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span>
             {msg}
           </span>
-          <FormattedMessage id="content-manager.containers.Edit.reset">
-            {m => (
-              <span onClick={this.handleResetDisplayedFields}>
-                {m}
-              </span>
-            )}
-          </FormattedMessage>
+          <FormattedMessage id="content-manager.containers.Edit.reset" />
         </div>
       </DropdownItem>
     );
@@ -433,6 +430,7 @@ export class ListPage extends React.Component {
   renderPluginHeader = () => {
     const pluginHeaderActions = [
       {
+        id: 'addEntry',
         label: 'content-manager.containers.List.addAnEntry',
         labelValues: {
           entity: capitalize(this.props.match.params.slug) || 'Content Manager',
@@ -547,7 +545,7 @@ export class ListPage extends React.Component {
                       decreaseMarginBottom={filters.length > 0}
                     >
                       <div className="row">
-                        <AddFilterCTA onClick={onToggleFilters} showHideText={showFilter} />
+                        <AddFilterCTA onClick={onToggleFilters} showHideText={showFilter} id="addFilterCTA" />
                         {filters.map(this.renderFilter)}
                       </div>
                     </Div>
@@ -682,7 +680,7 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'listPage', reducer });
-const withSaga = injectSaga({ key: 'listPage', saga });
+const withReducer = strapi.injectReducer({ key: 'listPage', reducer, pluginId });
+const withSaga = strapi.injectSaga({ key: 'listPage', saga, pluginId });
 
 export default compose(withReducer, withSaga, withConnect)(ListPage);
