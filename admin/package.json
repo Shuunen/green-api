@@ -30,7 +30,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "react-ga": "2.5.3",
+    "react-ga": "2.5.7",
     "remove-markdown": "0.2.2",
     "shelljs": "0.7.8"
   },
