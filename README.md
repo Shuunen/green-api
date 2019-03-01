@@ -6,7 +6,10 @@
 
 * Node : version 10 ans above
 * Npm : version 6 and above
-* MongoDB : version 3 and above
+
+## Install
+
+* Setup db : copy `config\environments\development\database.json.tpl` to `database.json` and fill `_MY_URI_`
 * Install dependencies : `yarn`
 
 ## Usage
