@@ -16,21 +16,22 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Switch, Route } from 'react-router-dom';
 import { get, includes, isFunction, map, omit } from 'lodash';
-import { compose } from 'redux';
-
+import { bindActionCreators, compose } from 'redux';
 // Actions required for disabling and enabling the OverlayBlocker
-import { disableGlobalOverlayBlocker, enableGlobalOverlayBlocker } from 'actions/overlayBlocker';
-
+import {
+  disableGlobalOverlayBlocker,
+  enableGlobalOverlayBlocker,
+} from 'actions/overlayBlocker';
 import { pluginLoaded, updatePlugin } from 'containers/App/actions';
 import {
+  makeSelectAppPlugins,
   makeSelectBlockApp,
+  makeSelectOverlayBlockerProps,
+  makeSelectIsAppLoading,
   makeSelectShowGlobalAppBlocker,
   selectHasUserPlugin,
   selectPlugins,
 } from 'containers/App/selectors';
-
-import { hideNotification } from 'containers/NotificationProvider/actions';
-
 // Design
 import ComingSoonPage from 'containers/ComingSoonPage';
 import Content from 'containers/Content';
@@ -38,33 +39,36 @@ import LocaleToggle from 'containers/LocaleToggle';
 import CTAWrapper from 'components/CtaWrapper';
 import Header from 'components/Header/index';
 import HomePage from 'containers/HomePage/Loadable';
-import InstallPluginPage from 'containers/InstallPluginPage/Loadable';
+import Marketplace from 'containers/Marketplace/Loadable';
 import LeftMenu from 'containers/LeftMenu';
 import ListPluginsPage from 'containers/ListPluginsPage/Loadable';
+import LoadingIndicatorPage from 'components/LoadingIndicatorPage';
 import Logout from 'components/Logout';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import OverlayBlocker from 'components/OverlayBlocker';
 import PluginPage from 'containers/PluginPage';
-
+import FullStory from 'components/FullStory';
 // Utils
 import auth from 'utils/auth';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-
-import { getGaStatus, getLayout } from './actions';
+import { getAdminData } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import selectAdminPage from './selectors';
-
 import styles from './styles.scss';
 
-const PLUGINS_TO_BLOCK_PRODUCTION = ['content-type-builder', 'settings-manager'];
+const PLUGINS_TO_BLOCK_PRODUCTION = [
+  'content-type-builder',
+  'settings-manager',
+];
 
 export class AdminPage extends React.Component {
   // eslint-disable-line react/prefer-stateless-function
   state = { hasAlreadyRegistereOtherPlugins: false };
 
   getChildContext = () => ({
+    currentEnvironment: this.props.adminPage.currentEnvironment,
     disableGlobalOverlayBlocker: this.props.disableGlobalOverlayBlocker,
     enableGlobalOverlayBlocker: this.props.enableGlobalOverlayBlocker,
     plugins: this.props.plugins,
@@ -72,30 +76,40 @@ export class AdminPage extends React.Component {
   });
 
   componentDidMount() {
+    this.props.getAdminData();
     this.checkLogin(this.props);
-    this.props.getGaStatus();
-    this.props.getLayout();
     ReactGA.initialize('UA-54313258-9');
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.location.pathname !== this.props.location.pathname) {
-      this.checkLogin(nextProps);
+  componentDidUpdate(prevProps) {
+    const {
+      adminPage: { uuid },
+      location: { pathname },
+      plugins,
+    } = this.props;
 
-      if (nextProps.adminPage.allowGa) {
-        ReactGA.pageview(nextProps.location.pathname);
+    if (prevProps.location.pathname !== pathname) {
+      this.checkLogin(this.props);
+
+      if (uuid) {
+        ReactGA.pageview(pathname);
       }
     }
 
+    const hasAdminPath = ['users-permissions', 'hasAdminUser'];
+
     if (
-      get(nextProps.plugins.toJS(), ['users-permissions', 'hasAdminUser']) !==
-      get(this.props.plugins.toJS(), ['users-permissions', 'hasAdminUser'])
+      get(prevProps.plugins.toJS(), hasAdminPath) !==
+      get(plugins.toJS(), hasAdminPath)
     ) {
-      this.checkLogin(nextProps, true);
+      this.checkLogin(this.props, true);
     }
 
-    if (!this.hasUserPluginLoaded(this.props) && this.hasUserPluginLoaded(nextProps)) {
-      this.checkLogin(nextProps);
+    if (
+      !this.hasUserPluginLoaded(prevProps) &&
+      this.hasUserPluginLoaded(this.props)
+    ) {
+      this.checkLogin(this.props);
     }
   }
 
@@ -127,42 +141,81 @@ export class AdminPage extends React.Component {
       this.props.history.push('/plugins/users-permissions/auth/register');
     }
 
-    if (!props.hasUserPlugin || (auth.getToken() && !this.state.hasAlreadyRegistereOtherPlugins)) {
-      map(omit(this.props.plugins.toJS(), ['users-permissions', 'email']), plugin => {
-        switch (true) {
-          case isFunction(plugin.bootstrap) && isFunction(plugin.pluginRequirements):
-            plugin
-              .pluginRequirements(plugin)
-              .then(plugin => {
-                return plugin.bootstrap(plugin);
-              })
-              .then(plugin => this.props.pluginLoaded(plugin));
-            break;
-          case isFunction(plugin.pluginRequirements):
-            plugin.pluginRequirements(plugin).then(plugin => this.props.pluginLoaded(plugin));
-            break;
-          case isFunction(plugin.bootstrap):
-            plugin.bootstrap(plugin).then(plugin => this.props.pluginLoaded(plugin));
-            break;
-          default:
-        }
-      });
+    if (
+      !props.hasUserPlugin ||
+      (auth.getToken() && !this.state.hasAlreadyRegistereOtherPlugins)
+    ) {
+      map(
+        omit(this.props.plugins.toJS(), ['users-permissions', 'email']),
+        plugin => {
+          switch (true) {
+            case isFunction(plugin.bootstrap) &&
+              isFunction(plugin.pluginRequirements):
+              plugin
+                .pluginRequirements(plugin)
+                .then(plugin => {
+                  return plugin.bootstrap(plugin);
+                })
+                .then(plugin => this.props.pluginLoaded(plugin));
+              break;
+            case isFunction(plugin.pluginRequirements):
+              plugin
+                .pluginRequirements(plugin)
+                .then(plugin => this.props.pluginLoaded(plugin));
+              break;
+            case isFunction(plugin.bootstrap):
+              plugin
+                .bootstrap(plugin)
+                .then(plugin => this.props.pluginLoaded(plugin));
+              break;
+            default:
+          }
+        },
+      );
 
       this.setState({ hasAlreadyRegistereOtherPlugins: true });
     }
   };
 
-  hasUserPluginLoaded = props =>
-    typeof get(props.plugins.toJS(), ['users-permissions', 'hasAdminUser']) !== 'undefined';
+  hasUserPluginInstalled = () => {
+    const { appPlugins } = this.props;
 
-  hasAdminUser = props => get(props.plugins.toJS(), ['users-permissions', 'hasAdminUser']);
+    return appPlugins.indexOf('users-permissions') !== -1;
+  };
+
+  hasUserPluginLoaded = props =>
+    typeof get(props.plugins.toJS(), ['users-permissions', 'hasAdminUser']) !==
+    'undefined';
+
+  hasAdminUser = props =>
+    get(props.plugins.toJS(), ['users-permissions', 'hasAdminUser']);
 
   isUrlProtected = props =>
-    !includes(props.location.pathname, get(props.plugins.toJS(), ['users-permissions', 'nonProtectedUrl']));
+    !includes(
+      props.location.pathname,
+      get(props.plugins.toJS(), ['users-permissions', 'nonProtectedUrl']),
+    );
 
-  shouldDisplayLogout = () => auth.getToken() && this.props.hasUserPlugin && this.isUrlProtected(this.props);
+  shouldDisplayLogout = () =>
+    auth.getToken() &&
+    this.props.hasUserPlugin &&
+    this.isUrlProtected(this.props);
 
-  showLeftMenu = () => !includes(this.props.location.pathname, 'users-permissions/auth/');
+  showLeftMenu = () =>
+    !includes(this.props.location.pathname, 'users-permissions/auth/');
+
+  showLoading = () => {
+    const {
+      isAppLoading,
+      adminPage: { isLoading },
+    } = this.props;
+
+    return (
+      isAppLoading ||
+      isLoading ||
+      (this.hasUserPluginInstalled() && !this.hasUserPluginLoaded(this.props))
+    );
+  };
 
   retrievePlugins = () => {
     const {
@@ -172,7 +225,9 @@ export class AdminPage extends React.Component {
 
     if (currentEnvironment === 'production') {
       let pluginsToDisplay = plugins;
-      PLUGINS_TO_BLOCK_PRODUCTION.map(plugin => (pluginsToDisplay = pluginsToDisplay.delete(plugin)));
+      PLUGINS_TO_BLOCK_PRODUCTION.map(
+        plugin => (pluginsToDisplay = pluginsToDisplay.delete(plugin)),
+      );
 
       return pluginsToDisplay;
     }
@@ -180,17 +235,19 @@ export class AdminPage extends React.Component {
     return plugins;
   };
 
+  renderMarketPlace = props => <Marketplace {...props} {...this.props} />;
+
   render() {
     const { adminPage } = this.props;
     const header = this.showLeftMenu() ? <Header /> : '';
     const style = this.showLeftMenu() ? {} : { width: '100%' };
-
-    if (adminPage.isLoading) {
-      return <div />;
+    if (this.showLoading()) {
+      return <LoadingIndicatorPage />;
     }
 
     return (
       <div className={styles.adminPage}>
+        {this.props.adminPage.uuid ? <FullStory org="GK708" /> : ''}
         {this.showLeftMenu() && (
           <LeftMenu
             plugins={this.retrievePlugins()}
@@ -210,20 +267,24 @@ export class AdminPage extends React.Component {
               <Route path="/plugins/:pluginId" component={PluginPage} />
               <Route path="/plugins" component={ComingSoonPage} />
               <Route path="/list-plugins" component={ListPluginsPage} exact />
-              <Route path="/install-plugin" component={InstallPluginPage} exact />
+              <Route path="/marketplace" render={this.renderMarketPlace} exact />
               <Route path="/configuration" component={ComingSoonPage} exact />
               <Route path="" component={NotFoundPage} />
               <Route path="404" component={NotFoundPage} />
             </Switch>
           </Content>
         </div>
-        <OverlayBlocker isOpen={this.props.blockApp && this.props.showGlobalAppBlocker} />
+        <OverlayBlocker
+          isOpen={this.props.blockApp && this.props.showGlobalAppBlocker}
+          {...this.props.overlayBlockerData}
+        />
       </div>
     );
   }
 }
 
 AdminPage.childContextTypes = {
+  currentEnvironment: PropTypes.string.isRequired,
   disableGlobalOverlayBlocker: PropTypes.func,
   enableGlobalOverlayBlocker: PropTypes.func,
   plugins: PropTypes.object,
@@ -236,19 +297,24 @@ AdminPage.contextTypes = {
 
 AdminPage.defaultProps = {
   adminPage: {},
+  appPlugins: [],
   hasUserPlugin: true,
+  isAppLoading: true,
+  overlayBlockerData: {},
 };
 
 AdminPage.propTypes = {
   adminPage: PropTypes.object,
+  appPlugins: PropTypes.array,
   blockApp: PropTypes.bool.isRequired,
   disableGlobalOverlayBlocker: PropTypes.func.isRequired,
   enableGlobalOverlayBlocker: PropTypes.func.isRequired,
-  getGaStatus: PropTypes.func.isRequired,
-  getLayout: PropTypes.func.isRequired,
+  getAdminData: PropTypes.func.isRequired,
   hasUserPlugin: PropTypes.bool,
   history: PropTypes.object.isRequired,
+  isAppLoading: PropTypes.bool,
   location: PropTypes.object.isRequired,
+  overlayBlockerData: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
   pluginLoaded: PropTypes.func.isRequired,
   plugins: PropTypes.object.isRequired,
   showGlobalAppBlocker: PropTypes.bool.isRequired,
@@ -257,43 +323,37 @@ AdminPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   adminPage: selectAdminPage(),
+  appPlugins: makeSelectAppPlugins(),
   blockApp: makeSelectBlockApp(),
+  overlayBlockerData: makeSelectOverlayBlockerProps(),
   hasUserPlugin: selectHasUserPlugin(),
+  isAppLoading: makeSelectIsAppLoading(),
   plugins: selectPlugins(),
   showGlobalAppBlocker: makeSelectShowGlobalAppBlocker(),
 });
 
 function mapDispatchToProps(dispatch) {
-  return {
-    disableGlobalOverlayBlocker: () => {
-      dispatch(disableGlobalOverlayBlocker());
-    },
-    enableGlobalOverlayBlocker: () => {
-      dispatch(enableGlobalOverlayBlocker());
-    },
-    getGaStatus: () => {
-      dispatch(getGaStatus());
-    },
-    getLayout: () => {
-      dispatch(getLayout());
-    },
-    onHideNotification: id => {
-      dispatch(hideNotification(id));
-    },
-    pluginLoaded: plugin => {
-      dispatch(pluginLoaded(plugin));
-    },
-    updatePlugin: (pluginId, updatedKey, updatedValue) => {
-      dispatch(updatePlugin(pluginId, updatedKey, updatedValue));
+  return bindActionCreators(
+    {
+      disableGlobalOverlayBlocker,
+      enableGlobalOverlayBlocker,
+      getAdminData,
+      pluginLoaded,
+      updatePlugin,
     },
     dispatch,
-  };
+  );
 }
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 const withReducer = injectReducer({ key: 'adminPage', reducer });
 const withSaga = injectSaga({ key: 'adminPage', saga });
 
-export default compose(withReducer, withSaga, withConnect)(AdminPage);
-
-// export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(AdminPage);
