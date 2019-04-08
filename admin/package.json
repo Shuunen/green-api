@@ -34,16 +34,16 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "intl": "^1.2.5",
-    "react-ga": "^2.4.1",
-    "remove-markdown": "^0.2.2",
-    "shelljs": "^0.7.8"
+    "intl": "1.2.5",
+    "react-ga": "2.5.7",
+    "remove-markdown": "0.2.2",
+    "shelljs": "0.7.8"
   },
   "deprecated": false,
   "description": "Strapi Admin",
   "devDependencies": {
-    "cross-env": "^5.0.5",
-    "sanitize.css": "^4.1.0",
+    "cross-env": "5.2.0",
+    "sanitize.css": "4.1.0",
     "strapi-helper-plugin": "3.0.0-alpha.24.1",
     "strapi-utils": "3.0.0-alpha.24.1"
   },
