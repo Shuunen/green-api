@@ -15,18 +15,18 @@
     "standard": "12.0.1"
   },
   "dependencies": {
-    "lodash": "^4.17.5",
-    "strapi": "3.0.0-alpha.24.1",
-    "strapi-hook-mongoose": "3.0.0-alpha.24.1"
+    "lodash": "4.17.11",
+    "strapi": "3.0.0-alpha.25.2",
+    "strapi-hook-mongoose": "3.0.0-alpha.25.2"
   },
   "author": {
-    "name": "Romain Racamier-Lafonr",
+    "name": "Romain Racamier-Lafon",
     "email": "romain.racamier@gmail.com",
     "url": "https://github.com/Shuunen"
   },
   "maintainers": [
     {
-      "name": "Romain Racamier-Lafonr",
+      "name": "Romain Racamier-Lafon",
       "email": "romain.racamier@gmail.com",
       "url": "https://github.com/Shuunen"
     }
