@@ -36,7 +36,7 @@
     "grant-koa": "4.5.1",
     "jsonwebtoken": "8.5.1",
     "koa": "2.7.0",
-    "koa2-ratelimit": "0.6.3",
+    "koa2-ratelimit": "0.8.0",
     "purest": "2.0.1",
     "request": "2.88.0",
     "strapi-utils": "3.0.0-alpha.25.2",
