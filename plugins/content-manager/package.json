@@ -32,7 +32,7 @@
   },
   "bundleDependencies": false,
   "dependencies": {
-    "pluralize": "7.0.0"
+    "pluralize": "8.0.0"
   },
   "deprecated": false,
   "description": "A powerful UI to easily manage your data.",
