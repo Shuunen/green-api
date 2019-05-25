@@ -39,7 +39,7 @@
     "koa2-ratelimit": "0.8.0",
     "purest": "2.0.1",
     "request": "2.88.0",
-    "strapi-utils": "3.0.0-alpha.25.2",
+    "strapi-utils": "3.0.0-next.8",
     "uuid": "3.3.2"
   },
   "deprecated": false,
