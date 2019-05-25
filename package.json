@@ -16,8 +16,8 @@
   },
   "dependencies": {
     "lodash": "4.17.11",
-    "strapi": "3.0.0-alpha.25.2",
-    "strapi-hook-mongoose": "3.0.0-alpha.25.2"
+    "strapi": "3.0.0-next.8",
+    "strapi-hook-mongoose": "3.0.0-next.8"
   },
   "author": {
     "name": "Romain Racamier-Lafon",
